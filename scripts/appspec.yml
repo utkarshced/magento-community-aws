@@ -1,0 +1,20 @@
+version: 0.0
+os: linux
+files:
+   - source: /
+     destination: /var/www/html/
+permissions:
+   - object: /var/www/html/
+     owner: ubuntu
+     group: www-data
+     mode: 775
+     type:
+       - file
+       - directory
+hooks:
+   BeforeInstall:
+    - location: scripts/stopapache.sh
+      runas: root
+   AfterInstall:
+    - location: scripts/magento.sh
+      runas: root
