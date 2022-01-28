@@ -2,9 +2,9 @@ version: 0.0
 os: linux
 files:
    - source: /
-     destination: /var/www/html/magento/
+     destination: /var/www/html/magento-community-aws/
 permissions:
-   - object: /var/www/html/magento/
+   - object: /var/www/html/magento-community-aws/
      owner: ubuntu
      group: www-data
      mode: 775
