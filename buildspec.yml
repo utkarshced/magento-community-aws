@@ -27,3 +27,6 @@ phases:
     commands:
       - echo Building Project
       - echo Finished Building
+artifacts:
+  files:
+    - '**/*'
