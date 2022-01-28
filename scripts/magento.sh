@@ -1,3 +1,12 @@
 #!/bin/bash
-sudo service apache2 start > /var/log/startapache.out 2>&1
+cd /var/www/html/magento-community-aws
+composer install --ignore-platform-reqs
+composer dump-autoload -o --no-scripts
+php  bin/magento maintenance:enable
+php  bin/magento setup:upgrade
+php  bin/magento deploy:mode:set production
+php  bin/magento cache:clean
+php  bin/magento cache:flush
+php  bin/magento maintenance:disable
+chmod -R 777 var generated pub/static
 
