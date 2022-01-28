@@ -1,7 +1,6 @@
 #!/bin/bash
 cd /var/www/html/magento-community-aws
 composer install --ignore-platform-reqs
-composer dump-autoload -o --no-scripts
 php  bin/magento maintenance:enable
 php  bin/magento setup:upgrade
 php  bin/magento deploy:mode:set production
