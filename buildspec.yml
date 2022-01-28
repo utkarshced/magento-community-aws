@@ -3,25 +3,16 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 14
-    commands:
-      - apt-get update
-      - apt-get install -y jq
-      - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.4.0.2170-linux.zip
-      - unzip ./sonar-scanner-cli-4.4.0.2170-linux.zip
-      - export PATH=$PATH:./sonar-scanner-4.4.0.2170-linux/bin/
+      java: openjdk11
   pre_build:
     commands:
-      - sonar-scanner -Dsonar.organization=govindasharma -Dsonar.projectKey=govindasharma -Dsonar.sources=app/ -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=eb7aa1d56c763b3c8218b8012d9e5156c6acc0d8
+     #- sonar-scanner -Dsonar.organization=govindasharma -Dsonar.projectKey=govindasharma -Dsonar.sources=app/ -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=eb7aa1d56c763b3c8218b8012d9e5156c6acc0d8
+      - mvn sonar:sonar -Dsonar.login=eb7aa1d56c763b3c8218b8012d9e5156c6acc0d8 -Dsonar.host.url=https://sonarcloud.io -Dsonar.projectKey=govindasharma -Dsonar.sources=app/ -Dsonar.organization=govindasharma
       - sleep 5
-      - curl https://sonarcloud.io/api/qualitygates/project_status?projectKey=govindasharma > analysis.json
-      - cat analysis.json
-      - if [ $(jq -r '.projectStatus.status' analysis.json) = ERROR ] ; then $CODEBUILD_BUILD_SUCCEEDING -eq 0 ;fi
+      - curl https://sonarcloud.io/api/qualitygates/project_status?projectKey=govindasharma >result.json
+      - cat result.json
+      - if [ $(jq -r '.projectStatus.status' result.json) = ERROR ] ; then $CODEBUILD_BUILD_SUCCEEDING -eq 0 ;fi
   build:
     commands:
       - echo Building Project
       - echo Finished Building
-
-cache:
-  paths:
-    - "node_modules/**/*"
