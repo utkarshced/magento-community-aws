@@ -12,9 +12,6 @@ permissions:
        - file
        - directory
 hooks:
-   BeforeInstall:
-    - location: scripts/stopapache.sh
-      runas: root
    AfterInstall:
-    - location: scripts/startapache.sh
+    - location: scripts/magento.sh
       runas: root
