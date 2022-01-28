@@ -12,7 +12,7 @@ phases:
       - export PATH=$PATH:./sonar-scanner-4.4.0.2170-linux/bin/
   pre_build:
     commands:
-      - sonar-scanner -Dsonar.organization=govindasharma -Dsonar.projectKey=govindasharma -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=eb7aa1d56c763b3c8218b8012d9e5156c6acc0d8
+      - sonar-scanner -Dsonar.organization=govindasharma -Dsonar.projectKey=govindasharma -Dsonar.sources=app/ -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=eb7aa1d56c763b3c8218b8012d9e5156c6acc0d8
       - sleep 5
       - curl https://sonarcloud.io/api/qualitygates/project_status?projectKey=govindasharma > analysis.json
       - cat analysis.json
